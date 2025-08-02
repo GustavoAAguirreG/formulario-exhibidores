@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Registro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    /* Estilos del mensaje emergente */
+    #mensajeExito {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #mensajeExito .contenido {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    #mensajeExito .contenido p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    #mensajeExito .contenido button {
+      padding: 10px 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<script>
+  window.onload = function(){
+     const params = new
+URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (id) {
+     document.getElementById("id").value = id; }
+};
+     </script>
+  <h2>Formulario de Registro</h2>
+  <form id="formulario">
+    <label for="id">ID:</label>
+    <input type="text" name="id" id="id"readonly>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="ciudad">Ciudad:</label>
+    <input type="text" id="ciudad" name="ciudad">
+    
+    
+    <label for="barrio">Barrio:</label>
+    <input type="text" id="barrio" name="barrio">
+
+
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion">
+
+    <label for="foto">Foto:</label>
+<input type="file" id="foto" name="foto" accept="image/*" capture="environment">
+
+    <label for="observaciones">Observaciones:</label>
+    <textarea id="observaciones" name="observaciones"></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- MENSAJE EMERGENTE -->
+  <div id="mensajeExito">
+    <div class="contenido">
+      <p>✅ Registro exitoso</p>
+      <button onclick="cerrarMensaje()">Aceptar</button>
+    </div>
+  </div>
+
+  <script>
+    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycby7LbY9b1iIp5ASKJlP0R-8QFvtHRT_51zA7OpSa6DAnnlo9Bno-4xPw3kpv2N9VbWd/exec";
+
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(document.getElementById("formulario"));
+
+      fetch(URL_SCRIPT, {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        // Mostrar mensaje emergente personalizado
+        document.getElementById("mensajeExito").style.display = "flex";
+      })
+      .catch(error => {
+        alert("❌ Error al enviar. Intenta de nuevo.");
+        console.error("Error:", error);
+      });
+    });
+
+    function cerrarMensaje() {
+      document.getElementById("mensajeExito").style.display = "none";
+      document.getElementById("formulario").reset();
+    }
+  </script>
+
+</body>
+</html>
