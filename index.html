@@ -124,14 +124,21 @@
       document.getElementById("mensajeExito").style.display = "none";
       document.getElementById("formulario").reset();
     }
-    window.onload = function(){
-     const params = new
-URLSearchParams(window.location.search);
-  const id = params.get("id");
-  if (id) {
-     document.getElementById("id").value = id; }
-};
-     </script>
+    window.addEventListener("DOMContentLoaded"),
+      function(){
+        const params = new
+          URLSearchParams(window.location.search);
+        const id = params.get("id");
+        if (id) {
+          const campoId = 
+            document.getElementById("id");
+             if (campoid) {
+               campoId.value = id;
+             }
+        }
+      });
+      </script>
+          
 
 </body>
 </html>
