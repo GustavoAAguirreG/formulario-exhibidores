@@ -61,15 +61,7 @@
 </head>
 <body>
 <script>
-  window.onload = function(){
-     const params = new
-URLSearchParams(window.location.search);
-  const id = params.get("id");
-  if (id) {
-     document.getElementById("id").value = id; }
-};
-     </script>
-  <h2>Formulario de Registro</h2>
+    <h2>Formulario de Registro</h2>
   <form id="formulario">
     <label for="id">ID:</label>
     <input type="text" name="id" id="id"readonly>
@@ -133,6 +125,14 @@ URLSearchParams(window.location.search);
       document.getElementById("formulario").reset();
     }
   </script>
+   window.onload = function(){
+     const params = new
+URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (id) {
+     document.getElementById("id").value = id; }
+};
+     </script>
 
 </body>
 </html>
