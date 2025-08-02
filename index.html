@@ -26,7 +26,6 @@
       font-size: 16px;
     }
 
-    /* Estilos del mensaje emergente */
     #mensajeExito {
       display: none;
       position: fixed;
@@ -60,28 +59,26 @@
   </style>
 </head>
 <body>
-<script>
-    <h2>Formulario de Registro</h2>
+
+  <h2>Formulario de Registro</h2>
   <form id="formulario">
     <label for="id">ID:</label>
-    <input type="text" name="id" id="id"readonly>
+    <input type="text" name="id" id="id" readonly>
 
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" required>
 
     <label for="ciudad">Ciudad:</label>
     <input type="text" id="ciudad" name="ciudad">
-    
-    
+
     <label for="barrio">Barrio:</label>
     <input type="text" id="barrio" name="barrio">
-
 
     <label for="direccion">Dirección:</label>
     <input type="text" id="direccion" name="direccion">
 
     <label for="foto">Foto:</label>
-<input type="file" id="foto" name="foto" accept="image/*" capture="environment">
+    <input type="file" id="foto" name="foto" accept="image/*" capture="environment">
 
     <label for="observaciones">Observaciones:</label>
     <textarea id="observaciones" name="observaciones"></textarea>
@@ -111,7 +108,6 @@
       })
       .then(response => response.text())
       .then(data => {
-        // Mostrar mensaje emergente personalizado
         document.getElementById("mensajeExito").style.display = "flex";
       })
       .catch(error => {
@@ -124,21 +120,19 @@
       document.getElementById("mensajeExito").style.display = "none";
       document.getElementById("formulario").reset();
     }
-    window.addEventListener("DOMContentLoaded"),
-      function(){
-        const params = new
-          URLSearchParams(window.location.search);
-        const id = params.get("id");
-        if (id) {
-          const campoId = 
-            document.getElementById("id");
-             if (campoid) {
-               campoId.value = id;
-             }
+
+    // Corrección del evento DOMContentLoaded
+    window.addEventListener("DOMContentLoaded", function() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (id) {
+        const campoId = document.getElementById("id");
+        if (campoId) {
+          campoId.value = id;
         }
-      });
-      </script>
-          
+      }
+    });
+  </script>
 
 </body>
 </html>
