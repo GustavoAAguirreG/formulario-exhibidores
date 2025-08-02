@@ -77,13 +77,16 @@
     <label for="direccion">Dirección:</label>
     <input type="text" id="direccion" name="direccion">
 
+    <!-- Campo foto desactivado temporalmente -->
+    <!--
     <label for="foto">Foto:</label>
     <input type="file" id="foto" name="foto" accept="image/*" capture="environment">
+    -->
 
     <label for="observaciones">Observaciones:</label>
     <textarea id="observaciones" name="observaciones"></textarea>
 
-    <button type="submit">Enviar</button>
+    <button type="submit" id="btnEnviar">Enviar</button>
   </form>
 
   <!-- MENSAJE EMERGENTE -->
@@ -100,7 +103,17 @@
     document.getElementById("formulario").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const formData = new FormData(document.getElementById("formulario"));
+      const form = document.getElementById("formulario");
+      const boton = document.getElementById("btnEnviar");
+      const formData = new FormData(form);
+
+      // Mostrar los datos en consola para verificar
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
+
+      boton.disabled = true;
+      boton.textContent = "Enviando...";
 
       fetch(URL_SCRIPT, {
         method: "POST",
@@ -108,11 +121,16 @@
       })
       .then(response => response.text())
       .then(data => {
+        console.log("Respuesta del servidor:", data);
         document.getElementById("mensajeExito").style.display = "flex";
       })
       .catch(error => {
         alert("❌ Error al enviar. Intenta de nuevo.");
         console.error("Error:", error);
+      })
+      .finally(() => {
+        boton.disabled = false;
+        boton.textContent = "Enviar";
       });
     });
 
@@ -121,15 +139,12 @@
       document.getElementById("formulario").reset();
     }
 
-    // Corrección del evento DOMContentLoaded
+    // Llenar el campo ID desde la URL
     window.addEventListener("DOMContentLoaded", function() {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
       if (id) {
-        const campoId = document.getElementById("id");
-        if (campoId) {
-          campoId.value = id;
-        }
+        document.getElementById("id").value = id;
       }
     });
   </script>
